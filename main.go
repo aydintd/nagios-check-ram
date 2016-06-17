@@ -20,6 +20,7 @@ var (
 	mem_used  int
 	mem_cache int
 	mem_perc  int
+	err       error
 )
 
 func memory_usage() (mem_used, mem_perc int) {
@@ -50,12 +51,35 @@ func memory_usage() (mem_used, mem_perc int) {
 	return mem_used, mem_perc
 }
 
+func help() {
+	fmt.Printf("Usage : ./%s -w %%WARNING -c %%CRITICAL\n", os.Args[0])
+}
+
 func main() {
 	_, percentage := memory_usage()
-	warn, err := strconv.Atoi(os.Args[1])
-	check(err)
-	crit, err := strconv.Atoi(os.Args[2])
-	check(err)
+	var warn, crit int
+
+	if len(os.Args) != 5 {
+		help()
+		os.Exit(5)
+	}
+
+	if os.Args[1] == "-w" && os.Args[3] == "-c" {
+		warn, err = strconv.Atoi(os.Args[2])
+		check(err)
+		crit, err = strconv.Atoi(os.Args[4])
+		check(err)
+		if warn >= crit {
+			fmt.Println("%WARNING value can not be bigger than %CRITICAL value")
+			os.Exit(5)
+		} else if crit > 100 {
+			fmt.Println("%CRITICAL value can not be bigger than %100")
+			os.Exit(5)
+		}
+	} else {
+		help()
+		os.Exit(5)
+	}
 
 	switch {
 	case 0 <= percentage && percentage < warn:
