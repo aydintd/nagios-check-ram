@@ -8,12 +8,6 @@ import (
 	"strings"
 )
 
-func check(e error) {
-	if e != nil {
-		panic(e)
-	}
-}
-
 var (
 	mem_total int
 	mem_free  int
@@ -22,6 +16,12 @@ var (
 	mem_perc  int
 	err       error
 )
+
+func check(e error) {
+	if e != nil {
+		panic(e)
+	}
+}
 
 func memory_usage() (mem_used, mem_perc int) {
 	data, err := os.Open("/proc/meminfo")
