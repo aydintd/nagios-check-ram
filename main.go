@@ -17,6 +17,10 @@ var (
 	err       error
 )
 
+const (
+	_version = "1.0"
+)
+
 func check(e error) {
 	if e != nil {
 		panic(e)
@@ -52,7 +56,14 @@ func memory_usage() (mem_used, mem_perc int) {
 }
 
 func help() {
+	fmt.Printf("%s v%s\n", os.Args[0], _version)
+	fmt.Println()
 	fmt.Printf("Usage : ./%s -w %%WARNING -c %%CRITICAL\n", os.Args[0])
+	fmt.Println()
+	fmt.Println("WARNING and CRITICAL values are percentage values without %")
+	fmt.Println()
+	fmt.Println("2016 - Aydin Doyak <aydintd@gmail.com>")
+	os.Exit(5)
 }
 
 func main() {
@@ -70,7 +81,7 @@ func main() {
 		crit, err = strconv.Atoi(os.Args[4])
 		check(err)
 		if warn >= crit {
-			fmt.Println("%WARNING value can not be bigger than %CRITICAL value")
+			fmt.Println("WARNING value can not be bigger than CRITICAL value")
 			os.Exit(5)
 		} else if crit > 100 {
 			fmt.Println("%CRITICAL value can not be bigger than %100")
@@ -78,7 +89,6 @@ func main() {
 		}
 	} else {
 		help()
-		os.Exit(5)
 	}
 
 	switch {
