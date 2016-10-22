@@ -4,7 +4,7 @@
 
 To execute seperatly the plugin, get the source code and build it in your $GOPATH :
 
-	$ go get github.com/aydintd/nagios-ram-check
+    $ go get github.com/aydintd/nagios-check-ram
     $ go install
     $ nagios-check-ram -w 20 -c 25                                                                                                                                                                                              
     
