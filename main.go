@@ -93,13 +93,13 @@ func main() {
 
 	switch {
 	case 0 <= percentage && percentage < warn:
-		fmt.Printf("Memory: OK - Total: %d KB - Used: %d KB - Memory Usage: %%%d|TOTAL=%d;;;; USED=%d;;;; FREE=%d;;;; CACHE=%d;;;; \n", mem_total, mem_free, percentage, mem_total, mem_used, mem_free, mem_cache)
+		fmt.Printf("Memory: OK - Total: %d KB - Used: %d KB - Memory Usage: %%%d|TOTAL=%d;;;; USED=%d;;;; FREE=%d;;;; CACHE=%d;;;; \n", mem_total, mem_used, percentage, mem_total, mem_used, mem_free, mem_cache)
 		os.Exit(0)
 	case warn <= percentage && percentage < crit:
-		fmt.Printf("Memory: WARNING - Total: %d KB - Used: %d KB - Memory Usage: %%%d|TOTAL=%d;;;; USED=%d;;;; FREE=%d;;;; CACHE=%d;;;; \n", mem_total, mem_free, percentage, mem_total, mem_used, mem_free, mem_cache)
+		fmt.Printf("Memory: WARNING - Total: %d KB - Used: %d KB - Memory Usage: %%%d|TOTAL=%d;;;; USED=%d;;;; FREE=%d;;;; CACHE=%d;;;; \n", mem_total, mem_used, percentage, mem_total, mem_used, mem_free, mem_cache)
 		os.Exit(1)
 	case crit <= percentage:
-		fmt.Printf("Memory: CRITICAL - Total: %d KB - Used: %d KB - Memory Usage: %%%d|TOTAL=%d;;;; USED=%d;;;; FREE=%d;;;; CACHE=%d;;;; \n", mem_total, mem_free, percentage, mem_total, mem_used, mem_free, mem_cache)
+		fmt.Printf("Memory: CRITICAL - Total: %d KB - Used: %d KB - Memory Usage: %%%d|TOTAL=%d;;;; USED=%d;;;; FREE=%d;;;; CACHE=%d;;;; \n", mem_total, mem_used, percentage, mem_total, mem_used, mem_free, mem_cache)
 		os.Exit(2)
 	default:
 		fmt.Printf("UNKNOWN value.\n")
